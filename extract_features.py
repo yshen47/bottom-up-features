@@ -29,7 +29,6 @@ def parse_args():
     parser.add_argument('--boxes', dest='save_boxes',
                         help='save bounding boxes',
                         action='store_true')
-
     args = parser.parse_args()
     return args
 
@@ -46,7 +45,6 @@ if __name__ == '__main__':
         cfg_from_file(args.cfg_file)
 
     os.makedirs(args.output_dir, exist_ok=True)
-
     use_cuda = torch.cuda.is_available()
     assert use_cuda, 'Works only with CUDA' 
     device = torch.device('cuda') if use_cuda else torch.device('cpu')
@@ -106,6 +104,6 @@ if __name__ == '__main__':
         else:
             image_bboxes = None    
 
-        output_file = os.path.join(args.output_dir, im_file.split('.')[0]+'.npy')
+        output_file = os.path.join(args.output_dir, im_file.split('.')[0]+'.json')
         save_features(output_file, image_feat, image_bboxes)
         #torch.cuda.empty_cache()

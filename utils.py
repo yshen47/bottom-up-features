@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 from model.utils.blob import im_list_to_blob
 from model.utils.config import cfg
-
+import json
 
 def get_image_blob(im):
     """Converts an image into a network input.
@@ -40,8 +40,9 @@ def get_image_blob(im):
 
 
 def save_features(output_file, features, boxes):
-    if boxes == None:
+    if not boxes:
         res = features
     else:
         res = {'features': features, 'boxes': boxes}
-    np.save(output_file, res)
+    json.dump(res, output_file)
+    #np.save(output_file, res)
